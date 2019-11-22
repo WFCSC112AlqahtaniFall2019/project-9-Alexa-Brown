@@ -4,9 +4,10 @@
 #include <string>
 #include <vector>
 using namespace std;
+template <typename T>
 
 //mergeSort
-void mergeSortedLists(vector<int>& a, vector<int>& tmp, int leftPos, int rightPos, int rightEnd) {
+void mergeSortedLists(vector<T>& a, vector<T>& tmp, T leftPos, T rightPos, T rightEnd) {
     int leftEnd = rightPos - 1;
     int tempPos = leftPos;
     int numElements = rightEnd - leftPos + 1;
@@ -17,22 +18,20 @@ void mergeSortedLists(vector<int>& a, vector<int>& tmp, int leftPos, int rightPo
         } else {
             tmp[tempPos++] = a[rightPos++];
         }
-
     }
-
     while (leftPos <= leftEnd) {
         tmp[tempPos++] = a[leftPos++];
     }
     while (rightPos <= rightEnd) {
         tmp[tempPos++] = a[rightPos++];
     }
-
     for (int i = 0; i < numElements; i++, --rightEnd) {
         a[rightEnd] = tmp[rightEnd];
     }
 }
 
-void mergeSort(vector<int>& a, vector<int>& tmp, int left, int right) {
+template <typename T>
+void mergeSort(vector<T>& a, vector<T>& tmp, T left, T right) {
     if (left < right) {
         int center = ( left + right ) / 2;
         mergeSort(a, tmp, left, center);
@@ -41,18 +40,17 @@ void mergeSort(vector<int>& a, vector<int>& tmp, int left, int right) {
     }
 }
 
-
+template <typename T>
 // Swap function (call within bubblesort)
-void swap(int *a, int *b) {
-    int temp = *a; // save the value of num1
+void swap(T *a, T *b) {
+    T temp = *a; // save the value of num1
     *a = *b; // copy over num2 to num1
     *b = temp; // copy the saved value of num1 --- switching their values not their pointers
 }
 
-void bubbleSort(int *a, int n) {
-
+template <typename T>
+void bubbleSort(T *a, T n) {
     bool swapped = true;
-
     while (swapped) { // continue until there is no swap
         swapped = false;
         for (int k = 0; k < n - 1; k++) {
@@ -65,6 +63,8 @@ void bubbleSort(int *a, int n) {
 }
 
 int main() {
-    std::cout << "Hello, World!" << std::endl;
+    ifstream inFile;
+    ofstream outFile;
+    cout << "Hello, World!" << endl;
     return 0;
 }

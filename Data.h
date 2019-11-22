@@ -19,7 +19,6 @@ public:
     int points;
     string region;
 
-
     Data();
     Data(int rank, string country, int points, string region);
 

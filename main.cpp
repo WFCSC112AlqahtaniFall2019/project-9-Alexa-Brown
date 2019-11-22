@@ -3,6 +3,7 @@
 #include <fstream>
 #include <string>
 #include <vector>
+#include "time.h"
 using namespace std;
 template <typename T>
 
@@ -49,13 +50,13 @@ void swap(T *a, T *b) {
 }
 
 template <typename T>
-void bubbleSort(T *a, T n) {
+void bubbleSort(T a, T n) {
     bool swapped = true;
     while (swapped) { // continue until there is no swap
         swapped = false;
         for (int k = 0; k < n - 1; k++) {
-            if (a[k] > a[k + 1]) {
-                swap(a[k], a[k + 1]);
+            if (a.at(k) > a.at(k + 1)) {
+                swap(a.at(k), a.at(k + 1));
                 swapped = true; // if there is at least one swap make swapped true
             }
         }
@@ -65,6 +66,68 @@ void bubbleSort(T *a, T n) {
 int main() {
     ifstream inFile;
     ofstream outFile;
-    cout << "Hello, World!" << endl;
+    int length = 100000;
+
+    vector <Data> dataV (length, Data());
+    vector <Data> dataV_B(length, Data());
+    vector <Data> dataV_S(length, Data());
+    vector <Data> dataV_Q(length, Data());
+    vector <Data> dataV_M(length, Data());
+    vector <int> intV(20);
+    vector <int> intV_B(20);
+    vector <int> intV_S(20);
+    vector <int> intV_Q(20);
+    vector <int> intV_M(20);
+    vector <int> temp(20);
+    int i;
+
+    srand(time(0));
+    for (int j = 0; j < 20; ++j) {
+        intV.at(j) = rand() % 100;
+        cout << intV.at(j) << " " << endl;
+    }
+
+
+    //bubbleSort(intV_B, 20);
+   // mergeSort(intV_M,temp, 0, intV_M.size() - 1);
+
+
+    inFile.open("winemag-data_first150k.csv");
+
+    if (!inFile.is_open()) {
+        cout << "The input file did not open" << endl;
+    }
+    cout << "The file opened" << endl;
+
+
+     while (!inFile.eof()) {
+
+    //cout << "hi" <<endl;
+
+    //getline will go until the comma then will move on
+    string r, c, p, reg;
+    getline(inFile, r, ','); //rank
+    getline(inFile, c, ','); //country
+    getline(inFile, p, ','); //points
+    getline(inFile, reg, '\n'); //region
+
+    int rank = stoi(r); //change into integer
+    int points = stod(p); //change into integer
+    Data info = Data(rank, c, points, reg); //creating the Data object with the information
+    cout << "Hi" ;
+    //dataV.at(i) = info;
+    cout << "hello";
+    i++;
+    // cout << info.getCountry() << info.getRank() << info.getRegion();
+}
+/*
+    for (int j = 0; j < 100; ++j) {
+        cout << v[j];
+
+    }*/
+
+     inFile.close();
+     cout << "Files are closed." << endl;
+
     return 0;
 }

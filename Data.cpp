@@ -10,21 +10,21 @@
 using namespace std;
 
 Data::Data() { //default constructor
+    rank = 0;
     country = "";
-    happinessRank = 0;
-    happinessScore = 0;
-    GDP = 0;
+    points = 0;
+    region = " ";
 }
-Data::Data(string c, int rank, double score, double g) { //alternate constructor
+Data::Data(int r, string c, int p, string reg) { //alternate constructor
+    rank = r;
     country = c;
-    happinessRank = rank;
-    happinessScore = score;
-    GDP = g;
+    points = p;
+    region = reg;
 }
 
 
 bool operator > (const Data &d, const Data & d2) { // > overloader
-    return d.happinessRank > d2.happinessRank;
+    return d.rank > d2.rank;
     /*if (this->happinessRank < d.happinessRank){
         return false;
     }
@@ -34,7 +34,7 @@ bool operator > (const Data &d, const Data & d2) { // > overloader
 
 
 bool operator < (const Data &d, const Data &d2){ // < overloader
-    return d.happinessRank < d2.happinessRank;
+    return d.rank < d2.rank;
     /*
     if (d.happinessRank > d2.happinessRank){
         return false;
@@ -49,7 +49,7 @@ bool operator < (const Data &d, const Data &d2){ // < overloader
 }
 
 ostream& operator << (ostream& os, const Data a){ //overloaded to print to the files
-    os << "Country: " << a.country << "  Rank: " << a.happinessRank << "  Score: " << a.happinessScore << "  GDP: " << a.GDP << endl;
+    os << "Country: " << a.country << " Region: " << a.region <<  "  Rank: " << a.rank << "  Points: " << a.points << endl;
     cout << "Printing" << endl; // to check that it is printing when called
     return os;
 }

@@ -14,14 +14,14 @@ using namespace std;
 class Data {
     friend ostream& operator << (ostream& os, Data a);
 public:
+    int rank;
     string country;
-    int happinessRank;
-    double happinessScore;
-    double GDP;
+    int points;
+    string region;
 
 
     Data();
-    Data(string c, int rank, double score, double g);
+    Data(int rank, string country, int points, string region);
 
     friend bool operator > (const Data &d, const Data & d2);
 
@@ -33,23 +33,23 @@ public:
     string getCountry(){
         return country;
     }
-    void sethappinessRank (double r){
-        happinessRank = r;
+    void setRank (int r){
+        rank = r;
     }
-    double gethappinessRank(){
-        return happinessRank;
+    int getRank(){
+        return rank;
     }
-    void sethappinessScore (double s){
-        happinessScore = s;
+    void setPoints (int p){
+        points = p;
     }
-    double gethappinessScore(){
-        return happinessScore;
+    int getPoints(){
+        return points;
     }
-    void setGDP(double g){
-        GDP = g;
+    void setRegion(string reg){
+        region = reg;
     }
-    double getGDP(){
-        return GDP;
+    string getRegion(){
+        return region;
     }
 
 

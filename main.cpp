@@ -5,8 +5,67 @@
 #include <vector>
 #include "time.h"
 using namespace std;
+int Partition(int numbers[], int i, int k);
+void quickSort(int numbers[], int i, int k);
 template <typename T>
+void mergeSortedLists(vector<T>& a, vector<T>& tmp, T leftPos, T rightPos, T rightEnd);
+template <typename T>
+void mergeSort(vector<T>& a, vector<T>& tmp, T left, T right);
+template <typename T>
+void bubbleSort(T a, T n);
 
+
+template <typename T>
+int Partition(int numbers[], int i, int k) {
+    /* Pick middle value as pivot */
+    T midpoint = i + (k - i) / 2;
+    T pivot = numbers[midpoint];
+    T done = false;
+
+    /* Initialize variables */
+    T l = i;
+    T h = k;
+
+    while (!done) {
+        /* Increment l while numbers[l] < pivot */
+        while (numbers[l] < pivot) {
+            ++l;
+        }
+        /* Decrement h while pivot < numbers[h] */
+        while (pivot < numbers[h]) {
+            --h;
+        }
+        if (l >= h) { //already partitioned if there is one or no elements left
+            done = true;
+        }
+        else {
+            /* Swap numbers[l] and numbers[h],
+                update l and h */
+            T temp = numbers[l];
+            numbers[l] = numbers[h];
+            numbers[h] = temp;
+
+            ++l;
+            --h;
+        }
+    }
+    return h;
+}
+
+template <typename T>
+void quickSort(int numbers[], int i, int k) {
+    int j;
+
+    if (i >= k) { //if 1 or 0 elements, already sorted
+        return;
+    }
+    j = Partition(numbers, i, k); //continues to break apart the array and midpoint is at the end
+
+    quickSort(numbers, i, j); //sorts low and high sections
+    quickSort(numbers, j + 1, k);
+}
+
+template <typename T>
 //mergeSort
 void mergeSortedLists(vector<T>& a, vector<T>& tmp, T leftPos, T rightPos, T rightEnd) {
     int leftEnd = rightPos - 1;
@@ -83,10 +142,15 @@ int main() {
 
     srand(time(0));
     for (int j = 0; j < 20; ++j) {
-        intV.at(j) = rand() % 100;
+        int a= rand() % 100;
+        intV.at(j) = a;
+        intV_B.at(j) = a;
+        intV_M.at(j)= a;
+        intV_Q.at(j) = a;
+        intV_S.at(j) = a;
         cout << intV.at(j) << " " << endl;
     }
-
+    //quickSort(intV_Q, 0, 19);
 
     //bubbleSort(intV_B, 20);
    // mergeSort(intV_M,temp, 0, intV_M.size() - 1);
@@ -116,6 +180,10 @@ int main() {
     Data info = Data(rank, c, points, reg); //creating the Data object with the information
    // cout << "Hi" ;
     dataV.at(i) = info;
+    dataV_B.at(i) = info;
+    dataV_M.at(i) = info;
+    dataV_Q.at(i) = info;
+    dataV_S.at(i) = info;
   //  cout << "hello";
     i++;
     // cout << info.getCountry() << info.getRank() << info.getRegion();

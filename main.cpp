@@ -16,7 +16,7 @@ void bubbleSort(T a, T n);
 
 
 template <typename T>
-int Partition(int numbers[], int i, int k) {
+int Partition(int numbers[], int i, int k) { //started with code from Zybooks, chapter 15.8- Quicksort
     /* Pick middle value as pivot */
     T midpoint = i + (k - i) / 2;
     T pivot = numbers[midpoint];

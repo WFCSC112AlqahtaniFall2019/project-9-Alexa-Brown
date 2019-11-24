@@ -79,7 +79,7 @@ int main() {
     vector <int> intV_Q(20);
     vector <int> intV_M(20);
     vector <int> temp(20);
-    int i;
+    int i = 0;
 
     srand(time(0));
     for (int j = 0; j < 20; ++j) {
@@ -114,9 +114,9 @@ int main() {
     int rank = stoi(r); //change into integer
     int points = stod(p); //change into integer
     Data info = Data(rank, c, points, reg); //creating the Data object with the information
-    cout << "Hi" ;
-    //dataV.at(i) = info;
-    cout << "hello";
+   // cout << "Hi" ;
+    dataV.at(i) = info;
+  //  cout << "hello";
     i++;
     // cout << info.getCountry() << info.getRank() << info.getRegion();
 }

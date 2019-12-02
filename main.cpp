@@ -6,7 +6,7 @@
 #include "time.h"
 using namespace std;
 template <class T>
-int Partition(vector<T>& numbers, int i, int k);
+int breakApart(vector<T>& numbers, int i, int k);
 template <class T>
 void quickSort(vector<T>& numbers, int i, int k);
 template <typename T>
@@ -19,7 +19,7 @@ void bubbleSort(vector<T>& a, U n);
 
 
 template <class T>
-int Partition(vector<T>& numbers, int i, int k) { //started with code from Zybooks, chapter 15.8- Quicksort
+int breakApart(vector<T>& numbers, int i, int k) { //started with code from Zybooks, chapter 15.8- Quicksort
     /* Pick middle value as pivot */
     T midpoint = i + (k - i) / 2;
     T pivot = numbers[midpoint];
@@ -62,7 +62,7 @@ void quickSort(vector<T>& numbers, int i, int k) {
     if (i >= k) { //if 1 or 0 elements, already sorted
         return;
     }
-    j = Partition(numbers, i, k); //continues to break apart the array and midpoint is at the end
+    j = breakApart(numbers, i, k); //continues to break apart the array and midpoint is at the end
 
     quickSort(numbers, i, j); //sorts low and high sections
     quickSort(numbers, j + 1, k);
@@ -94,7 +94,6 @@ void mergeSortedLists(vector<T>& a, vector<T>& tmp, T leftPos, T rightPos, T rig
 }
 
 template <class T>
-//void mergeSort(vector<Data>& a, vector<Data>& tmp, U left, U right) {
 void mergeSort(vector<T>& a, vector<T>& tmp, int left, int right) {
     if (left < right) {
         int center = ( left + right ) / 2;

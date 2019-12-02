@@ -5,18 +5,21 @@
 #include <vector>
 #include "time.h"
 using namespace std;
-int Partition(int numbers[], int i, int k);
-void quickSort(int numbers[], int i, int k);
+template <class T>
+int Partition(vector<T>& numbers, int i, int k);
+template <class T>
+void quickSort(vector<T>& numbers, int i, int k);
 template <typename T>
 void mergeSortedLists(vector<T>& a, vector<T>& tmp, T leftPos, T rightPos, T rightEnd);
-template <typename T>
-void mergeSort(vector<T>& a, vector<T>& tmp, T left, T right);
-template <typename T>
-void bubbleSort(T a, T n);
+template <class T>
+void mergeSort(vector<T>& a, vector<T>& tmp, int left, int right);
+//void mergeSort(vector<T>& a, vector<T>& tmp, T left, T right);
+template <class T, typename U>
+void bubbleSort(vector<T>& a, U n);
 
 
-template <typename T>
-int Partition(int numbers[], int i, int k) { //started with code from Zybooks, chapter 15.8- Quicksort
+template <class T>
+int Partition(vector<T>& numbers, int i, int k) { //started with code from Zybooks, chapter 15.8- Quicksort
     /* Pick middle value as pivot */
     T midpoint = i + (k - i) / 2;
     T pivot = numbers[midpoint];
@@ -52,8 +55,8 @@ int Partition(int numbers[], int i, int k) { //started with code from Zybooks, c
     return h;
 }
 
-template <typename T>
-void quickSort(int numbers[], int i, int k) {
+template <class T>
+void quickSort(vector<T>& numbers, int i, int k) {
     int j;
 
     if (i >= k) { //if 1 or 0 elements, already sorted
@@ -90,8 +93,9 @@ void mergeSortedLists(vector<T>& a, vector<T>& tmp, T leftPos, T rightPos, T rig
     }
 }
 
-template <typename T>
-void mergeSort(vector<T>& a, vector<T>& tmp, T left, T right) {
+template <class T>
+//void mergeSort(vector<Data>& a, vector<Data>& tmp, U left, U right) {
+void mergeSort(vector<T>& a, vector<T>& tmp, int left, int right) {
     if (left < right) {
         int center = ( left + right ) / 2;
         mergeSort(a, tmp, left, center);
@@ -108,8 +112,8 @@ void swap(T *a, T *b) {
     *b = temp; // copy the saved value of num1 --- switching their values not their pointers
 }
 
-template <typename T>
-void bubbleSort(T a, T n) {
+template <class T, typename U>
+void bubbleSort(vector<T>& a, U n) {
     bool swapped = true;
     while (swapped) { // continue until there is no swap
         swapped = false;
@@ -128,15 +132,15 @@ int main() {
     int length = 100000;
 
     vector <Data> dataV (length, Data());
-    vector <Data> dataV_B(length, Data());
-    vector <Data> dataV_S(length, Data());
-    vector <Data> dataV_Q(length, Data());
-    vector <Data> dataV_M(length, Data());
+    vector <Data> dataV_B(length, Data()); //bubble sort
+    vector <Data> dataV_S(length, Data()); //selection sort
+    vector <Data> dataV_Q(length, Data()); //quick sort
+    vector <Data> dataV_M(length, Data()); //merge sort
     vector <int> intV(20);
-    vector <int> intV_B(20);
-    vector <int> intV_S(20);
-    vector <int> intV_Q(20);
-    vector <int> intV_M(20);
+    vector <int> intV_B(20); //bubble sort
+    vector <int> intV_S(20); //selection sort
+    vector <int> intV_Q(20); //quick sort
+    vector <int> intV_M(20); //merge sort
     vector <int> temp(20);
     int i = 0;
 
@@ -148,14 +152,28 @@ int main() {
         intV_M.at(j)= a;
         intV_Q.at(j) = a;
         intV_S.at(j) = a;
-        cout << intV.at(j) << " " << endl;
+        cout << intV.at(j) << " ";
     }
-    //quickSort(intV_Q, 0, 19);
+    cout << endl;
+    quickSort(intV_Q, 0, 19);
 
-    //bubbleSort(intV_B, 20);
-   // mergeSort(intV_M,temp, 0, intV_M.size() - 1);
-
-
+    bubbleSort(intV_B, 20);
+    mergeSort(intV_M,temp, 0, intV_M.size() - 1);
+   cout << "sorted\n";
+    for (int j = 0; j < 20; j++) {
+        cout << intV_B.at(j) << " ";
+    }
+    cout << endl;
+    cout << "merge sorted\n";
+    for (int j = 0; j < 20; j++) {
+        cout << intV_M.at(j) << " ";
+    }
+    cout << endl;
+    cout << "quick sorted\n";
+    for (int j = 0; j < 20; j++) {
+        cout << intV_Q.at(j) << " ";
+    }
+    cout << endl;
     inFile.open("winemag-data_first150k.csv");
 
     if (!inFile.is_open()) {

@@ -13,9 +13,10 @@ template <typename T>
 void mergeSortedLists(vector<T>& a, vector<T>& tmp, T leftPos, T rightPos, T rightEnd);
 template <class T>
 void mergeSort(vector<T>& a, vector<T>& tmp, int left, int right);
-//void mergeSort(vector<T>& a, vector<T>& tmp, T left, T right);
 template <class T, typename U>
 void bubbleSort(vector<T>& a, U n);
+template <class T>
+void selectionSort(vector<T>& a, int n);
 
 
 template <class T>
@@ -111,6 +112,23 @@ void swap(T *a, T *b) {
     *b = temp; // copy the saved value of num1 --- switching their values not their pointers
 }
 
+template <class T>
+void selectionSort(vector<T>& a, int n){
+    int i, j, min;
+
+    // One by one move boundary of unsorted subarray
+    for (i = 0; i < n-1; i++){
+        // Find the minimum element in unsorted array
+        min = i;
+        for (j = i+1; j < n; j++)
+            if (a.at(j)< a.at(min))
+                min = j;
+
+        // Swap the found minimum element with the first element
+        swap(&a.at(min), &a.at(i));
+    }
+}
+
 template <class T, typename U>
 void bubbleSort(vector<T>& a, U n) {
     bool swapped = true;
@@ -155,12 +173,17 @@ int main() {
     }
     cout << endl;
     quickSort(intV_Q, 0, 19);
-
+    selectionSort(intV_S, 20);
     bubbleSort(intV_B, 20);
     mergeSort(intV_M,temp, 0, intV_M.size() - 1);
-   cout << "sorted\n";
+   cout << "bubble sorted\n";
     for (int j = 0; j < 20; j++) {
         cout << intV_B.at(j) << " ";
+    }
+    cout << endl;
+    cout << "selection sorted\n";
+    for (int j = 0; j < 20; j++) {
+        cout << intV_S.at(j) << " ";
     }
     cout << endl;
     cout << "merge sorted\n";

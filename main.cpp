@@ -21,34 +21,33 @@ void selectionSort(vector<T>& a, int n);
 
 
 template <class T>
-int breakApart(vector<T>& numbers, int i, int k) { //started with code from Zybooks, chapter 15.8- Quicksort
+int breakApart(vector<T>& numbers, int start, int end) { //started with code from Zybooks, chapter 15.8- Quicksort
     /* Pick middle value as pivot */
-    T midpoint = i + (k - i) / 2;
-    T pivot = numbers[midpoint];
-    T done = false;
+    int midpoint = start + (end - start) / 2;
+    T pivot = numbers.at(midpoint);
+    bool done = false;
 
     /* Initialize variables */
-    T l = i;
-    T h = k;
+    int l = start;
+    int h = end;
 
     while (!done) {
-        /* Increment l while numbers[l] < pivot */
-        while (numbers[l] < pivot) {
+        // Increment l if the pivot is greater than the higher value
+        while (numbers.at(l) < pivot) {
             ++l;
         }
-        /* Decrement h while pivot < numbers[h] */
-        while (pivot < numbers[h]) {
+        // Decrement h if the pivot is less than the higher value
+        while (pivot < numbers.at(h)) {
             --h;
         }
-        if (l >= h) { //already partitioned if there is one or no elements left
+        if (l >= h) { //already broken apart if there is one or no elements left
             done = true;
         }
         else {
-            /* Swap numbers[l] and numbers[h],
-                update l and h */
-            T temp = numbers[l];
-            numbers[l] = numbers[h];
-            numbers[h] = temp;
+            //swap left and right numbers then update
+            T temp = numbers.at(l);
+            numbers.at(l) = numbers.at(h);
+            numbers.at(h) = temp;
 
             ++l;
             --h;
@@ -78,20 +77,22 @@ void mergeSortedLists(vector<T>& a, vector<T>& tmp, T leftPos, T rightPos, T rig
     int numElements = rightEnd - leftPos + 1;
 
     while (leftPos <= leftEnd && rightPos <= rightEnd) {
-        if (a[leftPos] <= a[rightPos]) {
-            tmp[tempPos++] = a[leftPos++];
+        if (a.at(leftPos) <= a.at(rightPos)) {
+            tmp.at(tempPos++) = a.at(leftPos++);
         } else {
-            tmp[tempPos++] = a[rightPos++];
+            tmp.at(tempPos++) = a.at(rightPos++);
         }
     }
     while (leftPos <= leftEnd) {
-        tmp[tempPos++] = a[leftPos++];
+        //tmp[tempPos++] = a[leftPos++];
+        tmp.at(tempPos++) = a.at(leftPos++);
     }
     while (rightPos <= rightEnd) {
-        tmp[tempPos++] = a[rightPos++];
+        tmp.at(tempPos++) = a.at(rightPos++);
+        //tmp[tempPos++] = a[rightPos++];
     }
     for (int i = 0; i < numElements; i++, --rightEnd) {
-        a[rightEnd] = tmp[rightEnd];
+        a.at(rightEnd) = tmp.at(rightEnd);
     }
 }
 
@@ -252,7 +253,16 @@ int main() {
     i++;
     // cout << info.getCountry() << info.getRank() << info.getRegion();
 }
-  //  quickSort(dataV_Q, 0, dataV_Q.size()-1);
+
+    clock_t start_quickSort = clock();
+    quickSort(dataV_Q, 0, 1000);
+    //quickSort(dataV_Q, 0, dataV_Q.size()-1);
+    clock_t end_quickSort = clock();
+    double elapsed_quickSort = double(end_quickSort - start_quickSort) / CLOCKS_PER_SEC;
+    cout << "Time for data quick sort: " << elapsed_quickSort << endl;
+
+    cout << "quick sort ran" << endl;
+
     clock_t start_selectionSort = clock();
     selectionSort(dataV_S, 1000);
     clock_t end_selectionSort = clock();
@@ -266,7 +276,9 @@ int main() {
     double elapsed_bubbleSort = double(end_bubbleSort - start_bubbleSort) / CLOCKS_PER_SEC;
     cout << "Time for data bubble sort: " << elapsed_bubbleSort << endl;
     //cout << "data bubble sort done";
-   // mergeSort(dataV_M,temp, 0, dataV_M.size() - 1);
+
+
+   //mergeSort(dataV_M,temp, 0, dataV_M.size() - 1);
 /*
     for (int j = 0; j < 100; ++j) {
         cout << v[j];

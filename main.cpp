@@ -5,6 +5,7 @@
 #include <vector>
 #include "time.h"
 using namespace std;
+
 template <class T>
 int breakApart(vector<T>& numbers, int i, int k);
 template <class T>
@@ -153,16 +154,17 @@ int main() {
     vector <Data> dataV_S(length, Data()); //selection sort
     vector <Data> dataV_Q(length, Data()); //quick sort
     vector <Data> dataV_M(length, Data()); //merge sort
-    vector <int> intV(20);
-    vector <int> intV_B(20); //bubble sort
-    vector <int> intV_S(20); //selection sort
-    vector <int> intV_Q(20); //quick sort
-    vector <int> intV_M(20); //merge sort
-    vector <int> temp(20);
+    vector<Data> datatemp (length, Data());
+    vector <int> intV(200);
+    vector <int> intV_B(200); //bubble sort
+    vector <int> intV_S(200); //selection sort
+    vector <int> intV_Q(200); //quick sort
+    vector <int> intV_M(200); //merge sort
+    vector <int> temp(200);
     int i = 0;
 
     srand(time(0));
-    for (int j = 0; j < 20; ++j) {
+    for (int j = 0; j < 200; ++j) {
         int a= rand() % 100;
         intV.at(j) = a;
         intV_B.at(j) = a;
@@ -172,10 +174,31 @@ int main() {
         cout << intV.at(j) << " ";
     }
     cout << endl;
-    quickSort(intV_Q, 0, 19);
-    selectionSort(intV_S, 20);
-    bubbleSort(intV_B, 20);
+    clock_t start_intselectionSort = clock();
+    selectionSort(intV_S, intV_S.size());
+    clock_t end_intselectionSort = clock();
+    double intelapsed_selectionSort = double(end_intselectionSort - start_intselectionSort) / CLOCKS_PER_SEC;
+    cout << "Time for int selection sort: " << intelapsed_selectionSort << endl;
+    //cout << "data selection sort done";
+
+    clock_t start_intbubbleSort = clock();
+    bubbleSort(intV_B, intV_B.size());
+    clock_t end_intbubbleSort = clock();
+    double elapsed_intbubbleSort = double(end_intbubbleSort - start_intbubbleSort) / CLOCKS_PER_SEC;
+    cout << "Time for int bubble sort: " << elapsed_intbubbleSort << endl;
+
+    clock_t start_intquickSort = clock();
+    quickSort(intV_Q, 0, intV_Q.size() - 1);
+    clock_t end_intquickSort = clock();
+    double elapsed_intquickSort = double(end_intquickSort - start_intquickSort) / CLOCKS_PER_SEC;
+    cout << "Time for int quick sort: " << elapsed_intquickSort << endl;
+
+    clock_t start_intmergeSort = clock();
     mergeSort(intV_M,temp, 0, intV_M.size() - 1);
+    clock_t end_intmergeSort = clock();
+    double elapsed_intmergeSort = double(end_intmergeSort - start_intmergeSort) / CLOCKS_PER_SEC;
+    cout << "Time for int merge sort: " << elapsed_intquickSort << endl;
+
    cout << "bubble sorted\n";
     for (int j = 0; j < 20; j++) {
         cout << intV_B.at(j) << " ";
@@ -204,7 +227,8 @@ int main() {
     cout << "The file opened" << endl;
 
 
-     while (!inFile.eof()) {
+    while (i<100){
+    // while (!inFile.eof()) {
 
     //cout << "hi" <<endl;
 
@@ -228,6 +252,21 @@ int main() {
     i++;
     // cout << info.getCountry() << info.getRank() << info.getRegion();
 }
+  //  quickSort(dataV_Q, 0, dataV_Q.size()-1);
+    clock_t start_selectionSort = clock();
+    selectionSort(dataV_S, 1000);
+    clock_t end_selectionSort = clock();
+    double elapsed_selectionSort = double(end_selectionSort - start_selectionSort) / CLOCKS_PER_SEC;
+    cout << "Time for data selection sort: " << elapsed_selectionSort << endl;
+    //cout << "data selection sort done";
+
+    clock_t start_bubbleSort = clock();
+    bubbleSort(dataV_B, 1000);
+    clock_t end_bubbleSort = clock();
+    double elapsed_bubbleSort = double(end_bubbleSort - start_bubbleSort) / CLOCKS_PER_SEC;
+    cout << "Time for data bubble sort: " << elapsed_bubbleSort << endl;
+    //cout << "data bubble sort done";
+   // mergeSort(dataV_M,temp, 0, dataV_M.size() - 1);
 /*
     for (int j = 0; j < 100; ++j) {
         cout << v[j];

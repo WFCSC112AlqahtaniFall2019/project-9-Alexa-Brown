@@ -285,8 +285,13 @@ int i = 0;
     //cout << "data bubble sort done";
 
 
+    clock_t start_mergeSort = clock();
     mergeSort(dataV_M, datatemp, 0, dataV_M.size() - 1);
-    cout << "mergesort ran" << endl;
+    clock_t end_mergeSort = clock();
+    double elapsed_mergeSort = double(end_mergeSort - start_mergeSort) / CLOCKS_PER_SEC;
+    cout << "Time for data merge sort: " << elapsed_mergeSort << endl;
+    //cout << "data bubble sort done";
+   // cout << "mergesort ran" << endl;
 /*
     for (int j = 0; j < 100; ++j) {
         cout << v[j];

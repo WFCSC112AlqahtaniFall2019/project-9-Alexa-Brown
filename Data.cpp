@@ -36,6 +36,9 @@ bool operator = (const Data &d, const Data & d2) { // = overloader
     return d.rank == d2.rank;
 
 }*/
+bool operator <= (const Data &d, const Data &d2){
+    return d.rank <= d2.rank;
+}
 
 
 bool operator < (const Data &d, const Data &d2){ // < overloader

@@ -23,8 +23,8 @@ public:
     Data(int rank, string country, int points, string region);
 
     friend bool operator > (const Data &d, const Data & d2);
-
     friend bool operator < (const Data &d, const Data & d2);
+    friend bool operator <= (const Data &d, const Data &d2);
 
     //friend bool operator = (const Data &d, const Data & d2);
 

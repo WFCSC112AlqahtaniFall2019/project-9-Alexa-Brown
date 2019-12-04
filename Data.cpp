@@ -28,9 +28,14 @@ bool operator > (const Data &d, const Data & d2) { // > overloader
     /*if (this->happinessRank < d.happinessRank){
         return false;
     }
-    elsereturn this->happinessRank > d.happinessRank;
+    else return this->happinessRank > d.happinessRank;
 */
 }
+/*
+bool operator = (const Data &d, const Data & d2) { // = overloader
+    return d.rank == d2.rank;
+
+}*/
 
 
 bool operator < (const Data &d, const Data &d2){ // < overloader

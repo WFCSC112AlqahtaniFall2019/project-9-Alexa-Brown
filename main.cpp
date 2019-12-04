@@ -11,7 +11,7 @@ int breakApart(vector<T>& numbers, int i, int k);
 template <class T>
 void quickSort(vector<T>& numbers, int i, int k);
 template <typename T>
-void mergeSortedLists(vector<T>& a, vector<T>& tmp, T leftPos, T rightPos, T rightEnd);
+void mergeSortedLists(vector<T>& a, vector<T>& tmp, int leftPos, int rightPos, int rightEnd);
 template <class T>
 void mergeSort(vector<T>& a, vector<T>& tmp, int left, int right);
 template <class T, typename U>
@@ -34,11 +34,11 @@ int breakApart(vector<T>& numbers, int start, int end) { //started with code fro
     while (!done) {
         // Increment l if the pivot is greater than the higher value
         while (numbers.at(l) < pivot) {
-            ++l;
+            l++;
         }
         // Decrement h if the pivot is less than the higher value
         while (pivot < numbers.at(h)) {
-            --h;
+            h--;
         }
         if (l >= h) { //already broken apart if there is one or no elements left
             done = true;
@@ -49,8 +49,8 @@ int breakApart(vector<T>& numbers, int start, int end) { //started with code fro
             numbers.at(l) = numbers.at(h);
             numbers.at(h) = temp;
 
-            ++l;
-            --h;
+            l++;
+            h--;
         }
     }
     return h;
@@ -71,31 +71,31 @@ void quickSort(vector<T>& numbers, int i, int k) {
 
 template <typename T>
 //mergeSort
-void mergeSortedLists(vector<T>& a, vector<T>& tmp, T leftPos, T rightPos, T rightEnd) {
+void mergeSortedLists(vector<T>& a, vector<T>& tmp, int leftPos, int rightPos, int rightEnd) {
     int leftEnd = rightPos - 1;
     int tempPos = leftPos;
     int numElements = rightEnd - leftPos + 1;
 
     while (leftPos <= leftEnd && rightPos <= rightEnd) {
-        if (a.at(leftPos) <= a.at(rightPos)) {
-            tmp.at(tempPos++) = a.at(leftPos++);
+        if (a[leftPos] <= a[rightPos]) {
+            tmp[tempPos++] = a[leftPos++];
         } else {
-            tmp.at(tempPos++) = a.at(rightPos++);
+            tmp[tempPos++] = a[rightPos++];
         }
+
     }
+
     while (leftPos <= leftEnd) {
-        //tmp[tempPos++] = a[leftPos++];
-        tmp.at(tempPos++) = a.at(leftPos++);
+        tmp[tempPos++] = a[leftPos++];
     }
     while (rightPos <= rightEnd) {
-        tmp.at(tempPos++) = a.at(rightPos++);
-        //tmp[tempPos++] = a[rightPos++];
+        tmp[tempPos++] = a[rightPos++];
     }
+
     for (int i = 0; i < numElements; i++, --rightEnd) {
-        a.at(rightEnd) = tmp.at(rightEnd);
+        a[rightEnd] = tmp[rightEnd];
     }
 }
-
 template <class T>
 void mergeSort(vector<T>& a, vector<T>& tmp, int left, int right) {
     if (left < right) {
@@ -105,7 +105,6 @@ void mergeSort(vector<T>& a, vector<T>& tmp, int left, int right) {
         mergeSortedLists(a, tmp, left, center + 1, right);
     }
 }
-
 template <typename T>
 // Swap function (call within bubblesort)
 void swap(T *a, T *b) {
@@ -148,31 +147,33 @@ void bubbleSort(vector<T>& a, U n) {
 int main() {
     ifstream inFile;
     ofstream outFile;
-    int length = 100000;
+    int length;
+    cout << "Input length"<< endl;
+    cin >> length;
 
     vector <Data> dataV (length, Data());
     vector <Data> dataV_B(length, Data()); //bubble sort
     vector <Data> dataV_S(length, Data()); //selection sort
     vector <Data> dataV_Q(length, Data()); //quick sort
     vector <Data> dataV_M(length, Data()); //merge sort
-    vector<Data> datatemp (length, Data());
-    vector <int> intV(200);
-    vector <int> intV_B(200); //bubble sort
-    vector <int> intV_S(200); //selection sort
-    vector <int> intV_Q(200); //quick sort
-    vector <int> intV_M(200); //merge sort
-    vector <int> temp(200);
-    int i = 0;
+    vector<Data> datatemp (length, Data()); //temp to send to merge sort
+    vector <int> intV(length);
+    vector <int> intV_B(length); //bubble sort
+    vector <int> intV_S(length); //selection sort
+    vector <int> intV_Q(length); //quick sort
+    vector <int> intV_M(length); //merge sort
+    vector <int> temp(length);
+    //int i = 0;
 
     srand(time(0));
-    for (int j = 0; j < 200; ++j) {
+    for (int j = 0; j < length; ++j) {
         int a= rand() % 100;
         intV.at(j) = a;
         intV_B.at(j) = a;
         intV_M.at(j)= a;
         intV_Q.at(j) = a;
         intV_S.at(j) = a;
-        cout << intV.at(j) << " ";
+        //cout << intV.at(j) << " ";
     }
     cout << endl;
     clock_t start_intselectionSort = clock();
@@ -200,7 +201,7 @@ int main() {
     double elapsed_intmergeSort = double(end_intmergeSort - start_intmergeSort) / CLOCKS_PER_SEC;
     cout << "Time for int merge sort: " << elapsed_intquickSort << endl;
 
-   cout << "bubble sorted\n";
+ /*  cout << "bubble sorted\n";
     for (int j = 0; j < 20; j++) {
         cout << intV_B.at(j) << " ";
     }
@@ -219,7 +220,7 @@ int main() {
     for (int j = 0; j < 20; j++) {
         cout << intV_Q.at(j) << " ";
     }
-    cout << endl;
+    cout << endl;  */
     inFile.open("winemag-data_first150k.csv");
 
     if (!inFile.is_open()) {
@@ -227,8 +228,8 @@ int main() {
     }
     cout << "The file opened" << endl;
 
-
-    while (i<100){
+int i = 0;
+    while (i<length){
     // while (!inFile.eof()) {
 
     //cout << "hi" <<endl;
@@ -255,30 +256,37 @@ int main() {
 }
 
     clock_t start_quickSort = clock();
-    quickSort(dataV_Q, 0, 1000);
-    //quickSort(dataV_Q, 0, dataV_Q.size()-1);
+    //quickSort(dataV_Q, 0, );
+    quickSort(dataV_Q, 0, dataV_Q.size()-1);
     clock_t end_quickSort = clock();
     double elapsed_quickSort = double(end_quickSort - start_quickSort) / CLOCKS_PER_SEC;
     cout << "Time for data quick sort: " << elapsed_quickSort << endl;
 
     cout << "quick sort ran" << endl;
+    clock_t start_quickSort2 = clock();
+    quickSort(dataV_Q, 0, dataV_Q.size()-1);
+    //quickSort(dataV_Q, 0, dataV_Q.size()-1);
+    clock_t end_quickSort2 = clock();
+    double elapsed_quickSort2 = double(end_quickSort2 - start_quickSort2) / CLOCKS_PER_SEC;
+    cout << "Time for data quick sort again: " << elapsed_quickSort2 << endl;
 
     clock_t start_selectionSort = clock();
-    selectionSort(dataV_S, 1000);
+    selectionSort(dataV_S, dataV_S.size() - 1);
     clock_t end_selectionSort = clock();
     double elapsed_selectionSort = double(end_selectionSort - start_selectionSort) / CLOCKS_PER_SEC;
     cout << "Time for data selection sort: " << elapsed_selectionSort << endl;
     //cout << "data selection sort done";
 
     clock_t start_bubbleSort = clock();
-    bubbleSort(dataV_B, 1000);
+    bubbleSort(dataV_B, dataV_B.size() - 1);
     clock_t end_bubbleSort = clock();
     double elapsed_bubbleSort = double(end_bubbleSort - start_bubbleSort) / CLOCKS_PER_SEC;
     cout << "Time for data bubble sort: " << elapsed_bubbleSort << endl;
     //cout << "data bubble sort done";
 
 
-   //mergeSort(dataV_M,temp, 0, dataV_M.size() - 1);
+    mergeSort(dataV_M, datatemp, 0, dataV_M.size() - 1);
+    cout << "mergesort ran" << endl;
 /*
     for (int j = 0; j < 100; ++j) {
         cout << v[j];

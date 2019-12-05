@@ -64,7 +64,6 @@ Data& Data::operator = (const Data &copy){
     swap(tmp.country, country);
 
     return *this;
-
 }
 
 ostream& operator << (ostream& os, const Data a){ //overloaded to print to the files

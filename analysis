@@ -5,7 +5,8 @@ Bubble sort has two for loops, with an if statement within the inner loop. In bu
 loops go until the size of the data set. Therefore, the worst case scenario would be O(N^2). This would most commonly
 occur when the data set is unsorted. To optimize bubble sort, a sorted data set would give us the best case scenario of
 O(N). If it is sorted, nothing will need to be swapped, therefore decreasing the runtime and the complexity. Although it
-still enters each loop, nothing needs to be swapped so it creates a faster complexity.
+still enters each loop, nothing needs to be swapped so it creates a faster complexity. Although I did not optimize it in
+my program, it can be optimized to O(N).
 Selection sort also has two for loops, with an if statement within the inner loop. Both loops also go to the size of the
 data set. Therefore, the worst case scenario would be O(N^2). However, there will be no way to optimize this because it
 will still check each number to ensure that it has found the max number in the data set, therefore taking the same

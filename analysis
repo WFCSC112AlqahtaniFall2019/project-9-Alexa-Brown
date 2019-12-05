@@ -14,3 +14,4 @@ Therefore, both bubble sort and selection sort have a worst case O(N^2) complexi
 We can use this information to know that as our data set increases in size, we should try to avoid using these
 algorithms to sort and instead use quick sort or merge sort to more efficiently and quickly sort larger data sets like
 the one used in this project.
+

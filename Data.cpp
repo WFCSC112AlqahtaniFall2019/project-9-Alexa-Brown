@@ -56,6 +56,17 @@ bool operator < (const Data &d, const Data &d2){ // < overloader
 
 }
 
+Data& Data::operator = (const Data &copy){
+    Data tmp (copy);
+    swap(tmp.rank, rank);
+    swap(tmp.region, region);
+    swap(tmp.points, points);
+    swap(tmp.country, country);
+
+    return *this;
+
+}
+
 ostream& operator << (ostream& os, const Data a){ //overloaded to print to the files
     os << "Country: " << a.country << " Region: " << a.region <<  "  Rank: " << a.rank << "  Points: " << a.points << endl;
     cout << "Printing" << endl; // to check that it is printing when called

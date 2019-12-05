@@ -25,6 +25,7 @@ public:
     friend bool operator > (const Data &d, const Data & d2);
     friend bool operator < (const Data &d, const Data & d2);
     friend bool operator <= (const Data &d, const Data &d2);
+    Data& operator = (const Data &copy);
 
     //friend bool operator = (const Data &d, const Data & d2);
 
